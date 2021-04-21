@@ -24,10 +24,6 @@ The existing databases will help the Analytics team apply different types of ana
 * Create DIMENSION users, time from extracting log_data by selected columns.
 
 
-# ER Diagram
-![My ERD](ERD.png)
-
-
 # Details
 1. test.ipynb, Displays the content for each table in the database.
 2. create_tables.py, Remove and create star schema tables. Can be executed to reset the star schema.
