@@ -22,7 +22,13 @@ In this project, you'll apply what you've learned on Spark and data lakes to bui
 ## S3 buckets (Personal):
 
 Song Data Path: s3://myproject-udacity4/song_data <br>
-Log Data Path: s3://myproject-udacity4/log_data 
+Log Data Path: s3://myproject-udacity4/log_data <br>
+
+Note: the song_data and log_data folder must be copied.<br>
+
+Examples: <br>
+aws s3 cp song_data/ s3://myproject-udacity4/song_data --recursive --exclude .DS_STORE <br>
+aws s3 cp log_data/ s3://myproject-udacity4/log_data --recursive --exclude .DS_STORE
 
 <b>Schema </b>
 
