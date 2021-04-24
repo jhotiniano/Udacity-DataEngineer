@@ -13,7 +13,7 @@ class StageToRedshiftOperator(BaseOperator):
         ACCESS_KEY_ID '{}'
         SECRET_ACCESS_KEY '{}'
         REGION '{}'
-        {} 'auto';
+        JSON '{}';
     """
 
     @apply_defaults
@@ -62,9 +62,11 @@ class StageToRedshiftOperator(BaseOperator):
         redshift = PostgresHook(postgres_conn_id = self.redshift_connection)
         
         # clean table content
+        self.log.info(f"Deleting data from destination Redshift table {self.table}")
         redshift.run("DELETE FROM {}".format(self.table))
         
         # run the query defined at the top of the class
+        self.log.info(f"Begin loading data from S3 to the Redshift table {self.table}")
         formatted_sql = StageToRedshiftOperator.sql_query.format(
             self.table
             ,self.s3_path

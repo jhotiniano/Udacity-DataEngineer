@@ -3,7 +3,7 @@ class SqlQueries:
     songplay_table_insert = ("""
         INSERT  INTO public.songplays
         SELECT  distinct
-                md5(se.sessionid || se.start_time) songplay_id
+                md5(se.sessionid || se.start_time) playid
                 ,se.start_time
                 ,se.userid
                 ,se.level

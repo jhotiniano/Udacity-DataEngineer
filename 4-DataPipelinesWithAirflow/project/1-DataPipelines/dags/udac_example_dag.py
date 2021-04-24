@@ -37,22 +37,22 @@ stage_events_to_redshift = StageToRedshiftOperator(
     ,provide_context = False
     ,dag = dag
     ,table = "staging_events"
-    ,s3_path = "s3://udacity-project5-jop/log_data"
+    ,s3_path = "s3://udacity-dend/log_data"
     ,redshift_connection = "redshift"
     ,amazon_conecction_user = "aws_credentials"
     ,region = "us-west-2"
-    ,format_file = "JSON"
+    ,format_file = "s3://udacity-dend/log_json_path.json"
 )
 stage_songs_to_redshift = StageToRedshiftOperator(
     task_id = 'Stage_songs'
     ,provide_context = False
     ,dag = dag
     ,table = "staging_songs"
-    ,s3_path = "s3://udacity-project5-jop/song_data"
+    ,s3_path = "s3://udacity-dend/song_data"
     ,redshift_connection = "redshift"
     ,amazon_conecction_user = "aws_credentials"
     ,region = "us-west-2"
-    ,format_file = "JSON"
+    ,format_file = "auto"
 )
 
 
@@ -106,7 +106,13 @@ run_quality_checks = DataQualityOperator(
     task_id = 'Run_data_quality_checks'
     ,dag = dag
     ,redshift_connection = "redshift"
-    ,tables = ["songplays", "users", "songs", "artists", "time"]
+    ,checks =   [
+                    {'id_table': 'playid', 'table': 'songplays', 'check_sql': "SELECT COUNT(*) FROM songplays WHERE playid IS NULL", 'expected_result': 0},
+                    {'id_table': 'userid', 'table': 'users', 'check_sql': "SELECT COUNT(*) FROM users WHERE userid IS NULL", 'expected_result': 0},
+                    {'id_table': 'songid', 'table': 'songs', 'check_sql': "SELECT COUNT(*) FROM songs WHERE songid IS NULL", 'expected_result': 0},
+                    {'id_table': 'artistid', 'table': 'artists', 'check_sql': "SELECT COUNT(*) FROM artists WHERE artistid IS NULL", 'expected_result': 0},
+                    {'id_table': 'start_time', 'table': 'time', 'check_sql': "SELECT COUNT(*) FROM time WHERE start_time IS NULL", 'expected_result': 0}
+                ]
 )
 
 

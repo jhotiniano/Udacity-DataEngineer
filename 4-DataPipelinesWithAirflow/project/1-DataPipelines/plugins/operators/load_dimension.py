@@ -47,6 +47,8 @@ class LoadDimensionOperator(BaseOperator):
         
         # clean table content and execute query
         if not self.append_only:
+            self.log.info(f"Deleting data {self.table} dimension table")
             redshift.run("DELETE FROM {}".format(self.table))
+        self.log.info(f"Begin inserting data from fact table into {self.table} dimension table")
         formatted_sql = getattr(SqlQueries, self.sql_query_variable).format(self.table)
         redshift.run(formatted_sql)
