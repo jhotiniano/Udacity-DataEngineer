@@ -27,7 +27,7 @@ The schema of the ELT is this DAG:
 
 My personl bucket contains all data:
 
-Log data: s3://udacity-project5-jop/log_data
+Log data: s3://udacity-project5-jop/log_data <br>
 Song data: s3://udacity-project5-jop/song_data
 
 
@@ -44,19 +44,19 @@ Star schema:
 
 #### Pre requisites
 
-Tables must be created in Redshift before executing the DAG workflow.
+Tables must be created in Redshift before executing the DAG workflow. <br>
 The create tables script can be found in: create_tables.sql
 
 
 ## Structure
 
-create_tables.sql: Contains the DDL for all tables.        
-dags/udac_example_dag.py: The DAG configuration file
-plugins/operators/stage_redshift.py: Operator to read files from S3 and load into redshift staging tables
-plugins/operators/load_fact.py: Operator to load the fact table in redshift
-plugins/operators/load_dimension.py: Operator to load the dime table in redshift
-plugins/operators/data_quality.py: Operator for data quality checking
-plugins/helpers/sql_queries: Redshift statements used in the DAG
+*create_tables.sql: Contains the DDL for all tables <br>
+*dags/udac_example_dag.py: The DAG configuration file <br>
+*plugins/operators/stage_redshift.py: Operator to read files from S3 and load into redshift staging tables <br>
+*plugins/operators/load_fact.py: Operator to load the fact table in redshift <br>
+*plugins/operators/load_dimension.py: Operator to load the dime table in redshift <br>
+*plugins/operators/data_quality.py: Operator for data quality checking <br>
+*plugins/helpers/sql_queries: Redshift statements used in the DAG
 
 
 ## Data Quality Checks
